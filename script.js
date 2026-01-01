@@ -55,7 +55,7 @@ function checkNumberValid(){
 dataForm.addEventListener("submit", async e => {
   e.preventDefault();
 
-  // ตรวจความถูกต้องของแต่ละฟิลด์
+  // 🔹 ตรวจฟิลด์แต่ละช่อง
   const validDate = validateTextField(dateField, dateMessage, "วันที่");
   const validProject = validateTextField(project, projectMessage, "โครงการ/กิจกรรม");
   const validOwner = validateTextField(owner, ownerMessage, "ผู้รับผิดชอบ");
@@ -67,12 +67,12 @@ dataForm.addEventListener("submit", async e => {
 
   // 🔹 แสดงข้อความกำลังบันทึก
   statusMessage.textContent = "⏳ กำลังบันทึกข้อมูล...";
-  statusMessage.className = "loading";  // ใช้ CSS loading ที่มีอยู่
-  statusMessage.style.display = "inline-flex";  // แสดงข้อความ
-  saveButton.disabled = true; // ป้องกันกดซ้ำ
+  statusMessage.className = "loading";       // ใช้ CSS loading
+  statusMessage.style.display = "flex";      // แสดง flex ทั้ง Desktop/มือถือ
+  saveButton.disabled = true;                // ป้องกันกดซ้ำ
 
   try {
-    // ส่งข้อมูลไป GAS
+    // 🔹 ส่งข้อมูลไป GAS
     const r = await post({
       action:"saveData",
       "เลขที่เริ่มต้น": startNumber.value,
@@ -83,24 +83,28 @@ dataForm.addEventListener("submit", async e => {
     });
 
     if(r.status === "error"){
-      // ถ้าเกิด error
+      // 🔴 ถ้าเกิด error
       statusMessage.textContent = `❌ ${r.message}`;
-      statusMessage.className = "loading"; // ใช้สีเดิม
+      statusMessage.className = "loading";  // ใช้สีเดิม
       saveButton.disabled = false;
       return;
     }
 
-    // ถ้าสำเร็จ
+    // 🔹 ถ้าสำเร็จ
     resultMessage.innerHTML = r.message;
     new bootstrap.Modal(resultModal).show();  // แสดง modal
     dataForm.reset();                          // รีเซ็ตฟอร์ม
     updateStartNumber();                       // อัปเดตเลขเริ่มต้นใหม่
 
-    // แสดงข้อความสำเร็จ
+    // 🔹 แสดงข้อความสำเร็จ
     statusMessage.textContent = "✅ บันทึกข้อมูลเรียบร้อยแล้ว!";
     statusMessage.className = "success";
-    setTimeout(() => { statusMessage.style.display = "none"; }, 2000);
     saveButton.disabled = false;
+
+    // 🔹 ซ่อนข้อความหลัง 2 วินาที
+    setTimeout(() => {
+      statusMessage.style.display = "none";
+    }, 2000);
 
   } catch (err) {
     console.error(err);
@@ -109,6 +113,7 @@ dataForm.addEventListener("submit", async e => {
     saveButton.disabled = false;
   }
 });
+
 
 
 // ตรวจทันทีที่พิมพ์
