@@ -16,6 +16,15 @@ function updateStartNumber(){
     });
 }
 
+function validateTextField(input, messageEl, text){
+  if(!input.value.trim()){
+    messageEl.textContent = `❌ กรุณากรอก${text}`;
+    return false;
+  }
+  messageEl.textContent = "";
+  return true;
+}
+
 function checkNumberValid(){
   const startNum = parseInt(startNumber.value);
   const endNum = parseInt(endNumber.value);
@@ -42,8 +51,18 @@ function checkNumberValid(){
   });
 }
 
+// 🔴 ตรวจทุกช่องก่อน submit
 dataForm.addEventListener("submit",e=>{
   e.preventDefault();
+
+  const validDate = validateTextField(dateField, dateMessage, "วันที่");
+  const validProject = validateTextField(project, projectMessage, "โครงการ/กิจกรรม");
+  const validOwner = validateTextField(owner, ownerMessage, "ผู้รับผิดชอบ");
+
+  if(!validDate || !validProject || !validOwner){
+    saveButton.disabled = true;
+    return;
+  }
 
   post({
     action:"saveData",
@@ -64,5 +83,10 @@ dataForm.addEventListener("submit",e=>{
   });
 });
 
+// ตรวจทันทีที่พิมพ์
 endNumber.addEventListener("input",checkNumberValid);
+dateField.addEventListener("input",()=>validateTextField(dateField,dateMessage,"วันที่"));
+project.addEventListener("input",()=>validateTextField(project,projectMessage,"โครงการ/กิจกรรม"));
+owner.addEventListener("input",()=>validateTextField(owner,ownerMessage,"ผู้รับผิดชอบ"));
+
 window.addEventListener("DOMContentLoaded",updateStartNumber);
