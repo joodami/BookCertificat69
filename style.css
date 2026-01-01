@@ -1,0 +1,147 @@
+body {
+  font-family: 'Sarabun', sans-serif;
+  background: #f0f2f5;
+}
+
+.header-green {
+  background: #2e86c1;
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+.logo {
+  height: 55px;
+  margin-right: 10px;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,.1);
+}
+footer {
+  text-align: center;
+  color: #666;
+  padding: 15px 0;
+  font-size: 14px;
+}
+
+/* ตาราง scrollable และ header ติดบน */
+.table-responsive {
+  max-height: 400px;
+  overflow-y: auto;
+}
+.table-responsive thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f8f9fa;
+  z-index: 10;
+}
+@media (max-width: 768px) {
+  .table-responsive {
+    max-height: 60vh;
+  }
+}
+
+/* สถานะบันทึกข้อมูล */
+#statusMessage {
+  display: none;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 15px;
+  border-radius: 8px;
+  padding: 10px 15px;
+  max-width: 260px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: opacity 0.4s;
+}
+#statusMessage.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #dbeafe;
+  color: #0d6efd;
+  border: 1px solid #b6d4fe;
+}
+#statusMessage.success {
+  display: block;
+  background-color: #d1e7dd;
+  color: #0f5132;
+  border: 1px solid #badbcc;
+}
+.spinner-border {
+  width: 1rem;
+  height: 1rem;
+  border-width: 2px;
+}
+
+input.valid {
+  border-color: #198754; /* เขียว */
+  background-color: #d1e7dd;
+}
+
+input.invalid {
+  border-color: #dc3545; /* แดง */
+  background-color: #f8d7da;
+}
+
+#endNumberWarning.valid {
+  color: #198754;
+}
+
+#endNumberWarning.invalid {
+  color: #dc3545;
+}
+
+/* ให้ข้อความใน modal ตัดบรรทัดอัตโนมัติและ responsive */
+.modal-body {
+  white-space: normal;   /* แทน pre-line เดิม */
+  word-break: break-word; /* ตัดคำยาว ๆ ไม่ให้ล้น modal */
+}
+
+/* แถบแสดงสถานะขณะบันทึกข้อมูล */
+#statusMessage.loading {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #d8e7f7; /* ฟ้าอมเทาอ่อน */
+  color: #2a7fc1;            /* ฟ้าเข้มสำหรับข้อความ */
+  border: 1px solid #a9c9e8; /* ขอบฟ้าอ่อน */
+  border-radius: 8px;
+  padding: 8px 16px;
+  margin-top: 10px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 5px rgba(42, 127, 193, 0.1); /* เงา subtle */
+  white-space: nowrap; /* ป้องกันข้อความตัดบรรทัด */
+}
+
+/* ส่วนหัว Modal ผลการบันทึก */
+.modal-header.bg-success {
+  background-color: #2e86c1 !important; /* ฟ้าอมเทาเข้ม */
+  color: #fff !important;               /* ข้อความสีขาว */
+  border-bottom: 3px solid #3498db !important; /* ขอบเข้ม */
+}
+
+/* ปรับปุ่มบันทึกข้อมูลเป็นฟ้าอมเทาเข้มขึ้น */
+#saveButton {
+  background-color: #2e86c1;   /* ฟ้าอมเทาเข้ม */
+  border-color: #1b4f72;       /* ขอบเข้มขึ้น */
+  color: #fff;                 /* ข้อความสีขาว */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#saveButton:hover {
+  background-color: #1b4f72;   /* ฟ้าอมเทาเข้มกว่าตอน hover */
+  transform: scale(1.03);      /* ขยายเล็กน้อยเวลา hover */
+}
+
+
+#saveButton:hover {
+  background-color: #1b4f72;   /* ฟ้าอมเทาเข้มกว่าตอน hover */
+  transform: scale(1.03);      /* ขยายเล็กน้อยเวลา hover */
+}
