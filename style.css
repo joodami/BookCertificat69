@@ -49,7 +49,46 @@ body {
   .logo {
     height: 40px;           /* ลดโลโก้ */
   }
+}/* ================= HEADER TEXT ================= */
+.header-green h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
+
+.title-main,
+.title-school,
+.title-year {
+  white-space: nowrap;
+}
+
+/* มือถือ: แยกชื่อโรงเรียนขึ้นบรรทัดใหม่ */
+@media (max-width: 576px) {
+  .header-green h1 {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .title-main {
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+
+  .title-school {
+    font-size: 1.05rem;
+    font-weight: 500;
+  }
+
+  .title-year {
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }
+}
+
+
+
 
 /* ================= MAIN CONTENT ================= */
 .container {
