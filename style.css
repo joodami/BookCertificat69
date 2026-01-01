@@ -133,24 +133,29 @@ footer a:hover {
   margin-left: auto;
   margin-right: auto;
   transition: opacity 0.4s;
+  word-break: break-word;  /* ป้องกันข้อความล้นมือถือ */
 }
 
+/* สถานะกำลังบันทึก */
 #statusMessage.loading {
-  display: inline-flex;
+  display: flex !important;       /* ใช้ flex ทั้ง Desktop/มือถือ */
+  justify-content: center;
   align-items: center;
   gap: 8px;
   background-color: #d8e7f7;
   color: #2a7fc1;
   border: 1px solid #a9c9e8;
   box-shadow: 0 2px 5px rgba(42, 127, 193, 0.1);
-  white-space: nowrap;
+  white-space: normal;            /* ให้ข้อความ wrap ได้บนมือถือ */
 }
 
+/* สถานะบันทึกสำเร็จ */
 #statusMessage.success {
   display: block;
   background-color: #d1e7dd;
   color: #0f5132;
   border: 1px solid #badbcc;
+  word-break: break-word;
 }
 
 /* ================= INPUT VALIDATION ================= */
