@@ -52,9 +52,10 @@ function checkNumberValid(){
 }
 
 // 🔴 ตรวจทุกช่องก่อน submit
-dataForm.addEventListener("submit",e=>{
+dataForm.addEventListener("submit", async e => {
   e.preventDefault();
 
+  // ตรวจความถูกต้องของแต่ละฟิลด์
   const validDate = validateTextField(dateField, dateMessage, "วันที่");
   const validProject = validateTextField(project, projectMessage, "โครงการ/กิจกรรม");
   const validOwner = validateTextField(owner, ownerMessage, "ผู้รับผิดชอบ");
@@ -64,24 +65,51 @@ dataForm.addEventListener("submit",e=>{
     return;
   }
 
-  post({
-    action:"saveData",
-    "เลขที่เริ่มต้น": startNumber.value,
-    "เลขที่สิ้นสุด": endNumber.value,
-    "ให้ไว้ ณ วันที่": dateField.value,
-    "โครงการ/กิจกรรม": project.value,
-    "ผู้รับผิดชอบ": owner.value
-  }).then(r=>{
-    if(r.status==="error"){
-      alert(r.message);
+  // 🔹 แสดงข้อความกำลังบันทึก
+  statusMessage.textContent = "⏳ กำลังบันทึกข้อมูล...";
+  statusMessage.className = "loading";  // ใช้ CSS loading ที่มีอยู่
+  statusMessage.style.display = "inline-flex";  // แสดงข้อความ
+  saveButton.disabled = true; // ป้องกันกดซ้ำ
+
+  try {
+    // ส่งข้อมูลไป GAS
+    const r = await post({
+      action:"saveData",
+      "เลขที่เริ่มต้น": startNumber.value,
+      "เลขที่สิ้นสุด": endNumber.value,
+      "ให้ไว้ ณ วันที่": dateField.value,
+      "โครงการ/กิจกรรม": project.value,
+      "ผู้รับผิดชอบ": owner.value
+    });
+
+    if(r.status === "error"){
+      // ถ้าเกิด error
+      statusMessage.textContent = `❌ ${r.message}`;
+      statusMessage.className = "loading"; // ใช้สีเดิม
+      saveButton.disabled = false;
       return;
     }
+
+    // ถ้าสำเร็จ
     resultMessage.innerHTML = r.message;
-    new bootstrap.Modal(resultModal).show();
-    dataForm.reset();
-    updateStartNumber();
-  });
+    new bootstrap.Modal(resultModal).show();  // แสดง modal
+    dataForm.reset();                          // รีเซ็ตฟอร์ม
+    updateStartNumber();                       // อัปเดตเลขเริ่มต้นใหม่
+
+    // แสดงข้อความสำเร็จ
+    statusMessage.textContent = "✅ บันทึกข้อมูลเรียบร้อยแล้ว!";
+    statusMessage.className = "success";
+    setTimeout(() => { statusMessage.style.display = "none"; }, 2000);
+    saveButton.disabled = false;
+
+  } catch (err) {
+    console.error(err);
+    statusMessage.textContent = "❌ เกิดข้อผิดพลาดในการบันทึก";
+    statusMessage.className = "loading";
+    saveButton.disabled = false;
+  }
 });
+
 
 // ตรวจทันทีที่พิมพ์
 endNumber.addEventListener("input",checkNumberValid);
