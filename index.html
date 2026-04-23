@@ -1,339 +1,329 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ทะเบียนคุมเกียรติบัตร - โรงเรียนพิมานพิทยาสรรค์</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ทะเบียนคุมเกียรติบัตร - โรงเรียนพิมานพิทยาสรรค์</title>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <style>
-    /* ================= GLOBAL & COLORS ================= */
-    :root {
-      --primary: #1a5276;    /* น้ำเงินเข้มหลัก */
-      --secondary: #2980b9;  /* ฟ้าสดใส */
-      --bg-body: #f4f7f9;
-      --text-main: #334155;
-    }
-
-    body {
-      font-family: 'Prompt', sans-serif;
-      background-color: var(--bg-body);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* ================= HEADER (แบนเนอร์ใหม่) ================= */
-    .app-header {
-      background: #ffffff;
-      text-align: center;
-      border-bottom: 4px solid var(--primary);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-      padding: 15px 20px;
-    }
-    .app-logo { height: 60px; margin-bottom: 8px; }
-    .app-brand-name { font-weight: 700; font-size: 1.8rem; color: var(--primary); margin: 0; line-height: 1.2; }
-    .school-subtitle { font-weight: 600; font-size: 1rem; color: #64748b; display: block; }
-    .year-badge { 
-      background: var(--primary); 
-      color: white; 
-      padding: 2px 12px; 
-      border-radius: 20px; 
-      font-size: 0.85rem; 
-      margin-top: 5px; 
-      display: inline-block;
-    }
-
-    /* ================= MAIN CONTENT ================= */
-    .container { flex: 1; }
-    
-    .card {
-      border: none;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-      background: white;
-    }
-
-    .form-label { font-weight: 600; color: var(--primary); font-size: 0.95rem; }
-    
-    .input-group-text {
-      background-color: #f8fafc;
-      border-color: #e2e8f0;
-      color: #64748b;
-      font-size: 0.9rem;
-    }
-
-    .form-control {
-      border-radius: 10px;
-      padding: 10px 15px;
-      border-color: #e2e8f0;
-    }
-
-    .form-control:focus {
-      border-color: var(--secondary);
-      box-shadow: 0 0 0 0.25rem rgba(41, 128, 185, 0.1);
-    }
-
-    /* ================= BUTTONS & STATUS ================= */
-    #saveButton {
-      background: var(--primary);
-      border: none;
-      border-radius: 12px;
-      padding: 12px 35px;
-      font-weight: 600;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-    }
-    #saveButton:hover:not(:disabled) {
-      background: var(--secondary);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(26, 82, 118, 0.2);
-    }
-
-    #statusMessage {
-      display: none;
-      padding: 12px;
-      border-radius: 10px;
-      font-weight: 500;
-      margin-top: 15px;
-    }
-    .loading-status { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
-    .success-status { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
-
-    /* ================= FOOTER ================= */
-    footer {
-      background: #fff;
-      padding: 20px;
-      border-top: 1px solid #e2e8f0;
-      font-size: 0.85rem;
-      color: #94a3b8;
-    }
-    footer a { color: var(--secondary); text-decoration: none; font-weight: 600; }
-
-    @media (max-width: 576px) {
-      .app-brand-name { font-size: 1.4rem; }
-      .app-logo { height: 50px; }
-    }
-  </style>
-</head>
-
-<body>
-
-  <header class="app-header">
-    <img src="https://github.com/joodami/school-assets/blob/main/logo.png?raw=true" class="app-logo" alt="Logo">
-    <h1 class="app-brand-name">ทะเบียนคุมเกียรติบัตร</h1>
-    <span class="school-subtitle">โรงเรียนพิมานพิทยาสรรค์</span>
-    <span class="year-badge">ประจำปีงบประมาณ 2569</span>
-  </header>
-
-  <div class="container mt-4 mb-4">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="card p-4 p-md-5">
-          <form id="dataForm">
-            <div class="row g-4">
-              <div class="col-md-6">
-                <label class="form-label">เลขที่เริ่มต้น</label>
-                <div class="input-group">
-                  <span class="input-group-text">พส.</span>
-                  <input type="number" id="startNumber" class="form-control fw-bold text-primary" readonly>
-                  <span class="input-group-text">/2569</span>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label">เลขที่สิ้นสุด <span class="text-danger">*</span></label>
-                <div class="input-group">
-                  <span class="input-group-text">พส.</span>
-                  <input type="number" id="endNumber" class="form-control fw-bold" placeholder="ระบุเลขสุดท้าย" required>
-                  <span class="input-group-text">/2569</span>
-                </div>
-                <div id="endNumberMessage" class="form-text text-danger small"></div>
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label">ให้ไว้ ณ วันที่</label>
-                <input type="text" id="dateField" class="form-control" placeholder="เช่น 23 เมษายน 2569">
-                <div id="dateMessage" class="form-text text-danger small"></div>
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label">โครงการ/กิจกรรม</label>
-                <input type="text" id="project" class="form-control" placeholder="ระบุชื่อโครงการ">
-                <div id="projectMessage" class="form-text text-danger small"></div>
-              </div>
-
-              <div class="col-12">
-                <label class="form-label">กลุ่มงาน/ผู้รับผิดชอบ</label>
-                <input type="text" id="owner" class="form-control" placeholder="ระบุชื่อผู้รับผิดชอบหรือกลุ่มงาน">
-                <div id="ownerMessage" class="form-text text-danger small"></div>
-              </div>
-            </div>
-
-            <div class="text-center mt-5">
-              <button type="submit" id="saveButton" class="btn btn-primary text-white">
-                <i class="bi bi-send-check me-2"></i> ขอเลขเกียรติบัตร
-              </button>
-              <div id="statusMessage"></div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <footer class="text-center">
-    <div class="mb-2">
-      <i class="bi bi-printer me-1"></i> <strong>ตำแหน่งการพิมพ์:</strong> 
-      <a href="https://firebasestorage.googleapis.com/v0/b/banner-web-app.appspot.com/o/%E0%B8%95%E0%B8%A2.%E0%B9%80%E0%B8%81%E0%B8%B5%E0%B8%A2%E0%B8%A3%E0%B8%95%E0%B8%B4%E0%B8%9A%E0%B8%B1%E0%B8%95%E0%B8%A3.jpg?alt=media&token=ee2c86cb-63fa-42da-931c-637654175322" target="_blank">
-        คลิกดูตัวอย่างใบเกียรติบัตร
-      </a>
-    </div>
-    <div>© 2026 งานสารบรรณ โรงเรียนพิมานพิทยาสรรค์</div>
-  </footer>
-
-  <div class="modal fade" id="resultModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content border-0" style="border-radius: 20px;">
-        <div class="modal-header text-white" style="background: var(--primary); border-radius: 20px 20px 0 0;">
-          <h5 class="modal-title"><i class="bi bi-check-circle-fill me-2"></i> บันทึกข้อมูลสำเร็จ</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body p-4 text-center" id="resultMessage"></div>
-        <div class="modal-footer border-0">
-          <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal" style="border-radius: 10px;">ตกลง</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <script>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbzT3q3QJ3B-nrINQoCLMkdSnBB8z66w536fiC_M_o1aOB5487pwGXiKPudvCfDeyEIZ/exec";
-
-    // ฟังก์ชันส่งข้อมูล
-    async function post(data) {
-      const params = new URLSearchParams(data);
-      const response = await fetch(GAS_URL, {
-        method: "POST",
-        body: params
-      });
-      return response.json();
-    }
-
-    // อัปเดตเลขเริ่มต้น
-    function updateStartNumber() {
-      post({ action: "getLastEndNumber" })
-        .then(last => {
-          document.getElementById('startNumber').value = (last || 0) + 1;
-        });
-    }
-
-    // ตรวจสอบช่องว่าง
-    function validateTextField(input, messageEl, text) {
-      if (!input.value.trim()) {
-        messageEl.textContent = `❌ กรุณากรอก${text}`;
-        input.classList.add('is-invalid');
-        return false;
-      }
-      messageEl.textContent = "";
-      input.classList.remove('is-invalid');
-      input.classList.add('is-valid');
-      return true;
-    }
-
-    // ตรวจสอบความถูกต้องของตัวเลข
-    function checkNumberValid() {
-      const startNum = parseInt(document.getElementById('startNumber').value);
-      const endNum = parseInt(document.getElementById('endNumber').value);
-      const msg = document.getElementById('endNumberMessage');
-      const btn = document.getElementById('saveButton');
-
-      msg.textContent = "";
-      btn.disabled = true;
-
-      if (!endNum) return;
-      if (endNum < startNum) {
-        msg.textContent = "❌ เลขสิ้นสุดต้องไม่น้อยกว่าเลขเริ่มต้น";
-        return;
-      }
-
-      post({ action: "checkDuplicate", startNum, endNum })
-        .then(r => {
-          if (r.status === "error") {
-            msg.textContent = "❌ ช่วงเลขนี้มีการใช้งานไปแล้ว";
-          } else {
-            btn.disabled = false;
-          }
-        });
-    }
-
-    // บันทึกข้อมูล
-    document.getElementById('dataForm').addEventListener("submit", async e => {
-      e.preventDefault();
-      
-      const form = e.target;
-      const status = document.getElementById('statusMessage');
-      const btn = document.getElementById('saveButton');
-
-      // ตรวจฟิลด์
-      const v1 = validateTextField(document.getElementById('dateField'), document.getElementById('dateMessage'), "วันที่");
-      const v2 = validateTextField(document.getElementById('project'), document.getElementById('projectMessage'), "โครงการ");
-      const v3 = validateTextField(document.getElementById('owner'), document.getElementById('ownerMessage'), "ผู้รับผิดชอบ");
-
-      if (!v1 || !v2 || !v3) return;
-
-      status.textContent = "⏳ กำลังเชื่อมต่อฐานข้อมูล...";
-      status.className = "loading-status";
-      status.style.display = "block";
-      btn.disabled = true;
-
-      try {
-        const r = await post({
-          action: "saveData",
-          "เลขที่เริ่มต้น": document.getElementById('startNumber').value,
-          "เลขที่สิ้นสุด": document.getElementById('endNumber').value,
-          "ให้ไว้ ณ วันที่": document.getElementById('dateField').value,
-          "โครงการ/กิจกรรม": document.getElementById('project').value,
-          "ผู้รับผิดชอบ": document.getElementById('owner').value
-        });
-
-        if (r.status === "error") {
-          status.textContent = `❌ ${r.message}`;
-          btn.disabled = false;
-          return;
+    <style>
+        :root {
+            --primary: #1a5276; /* สีน้ำเงินเข้ม PS-Sarabun */
+            --bg: #f8fafc;
+            --main-gradient: linear-gradient(135deg, #1a5276, #2980b9);
         }
 
-        // สำเร็จ
-        document.getElementById('resultMessage').innerHTML = `<h4 class="text-primary mb-3">จองเลขสำเร็จ!</h4><p class="mb-0">${r.message}</p>`;
-        new bootstrap.Modal(document.getElementById('resultModal')).show();
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: var(--bg);
+            color: #334155;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Header: ถอดแบบจากหน้า Hub ต้นฉบับเป๊ะๆ --- */
+        .app-header {
+            background: #ffffff;
+            text-align: center;
+            border-bottom: 4px solid var(--primary);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            flex-shrink: 0;
+        }
+
+        /* มือถือ (ตามต้นฉบับ) */
+        @media (max-width: 1023px) {
+            .app-header { padding: 8px 10px 0 10px; }
+            .school-logo { height: 40px; margin-bottom: 2px; }
+            .app-title { font-size: 1.2rem; line-height: 1.1; color: var(--primary); font-weight: 700; margin: 0; }
+            .app-subtitle { font-size: 0.75rem; margin-top: 2px; margin-bottom: 5px; font-weight: 600; color: #475569; }
+        }
+
+        /* คอมพิวเตอร์ (ตามต้นฉบับ) */
+        @media (min-width: 1024px) {
+            .app-header { padding: 10px 20px 5px 20px; } 
+            .school-logo { height: 55px; margin-bottom: 5px; }
+            .app-title { font-size: 1.8rem; font-weight: 700; color: var(--primary); margin: 0; }
+            .app-subtitle { font-size: 0.95rem; margin-top: 2px; margin-bottom: 5px; color: #475569; }
+        }
+
+        /* --- เนื้อหาหลัก --- */
+        .container { flex: 1; max-width: 900px; margin-top: 30px; margin-bottom: 50px; }
+
+        .card-system {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            background: white;
+            padding: 30px;
+            border-top: 6px solid var(--primary);
+        }
+
+        .form-label { font-weight: 600; color: var(--primary); font-size: 0.95rem; margin-bottom: 8px; }
         
-        form.reset();
-        document.querySelectorAll('.is-valid').forEach(el => el.classList.remove('is-valid'));
-        updateStartNumber();
+        .input-group-text { background-color: #f1f5f9; border-color: #e2e8f0; color: #64748b; font-weight: 600; }
+        .form-control { border-radius: 10px; padding: 10px 15px; border-color: #e2e8f0; }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 0.25rem rgba(26, 82, 118, 0.1); }
 
-        status.textContent = "✅ บันทึกข้อมูลเรียบร้อยแล้ว!";
-        status.className = "success-status";
-        
-        setTimeout(() => { status.style.display = "none"; }, 3000);
-      } catch (err) {
-        status.textContent = "❌ เกิดข้อผิดพลาดทางเทคนิค";
-        btn.disabled = false;
-      }
-    });
+        .year-badge {
+            background: var(--main-gradient);
+            color: white;
+            padding: 4px 15px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
 
-    // Event Listeners สำหรับการตรวจค่าทันที
-    document.getElementById('endNumber').addEventListener("input", checkNumberValid);
-    document.getElementById('dateField').addEventListener("input", () => validateTextField(document.getElementById('dateField'), document.getElementById('dateMessage'), "วันที่"));
-    document.getElementById('project').addEventListener("input", () => validateTextField(document.getElementById('project'), document.getElementById('projectMessage'), "โครงการ"));
-    document.getElementById('owner').addEventListener("input", () => validateTextField(document.getElementById('owner'), document.getElementById('ownerMessage'), "ผู้รับผิดชอบ"));
+        /* --- ปุ่มกด --- */
+        #saveButton {
+            background: var(--main-gradient);
+            border: none;
+            border-radius: 12px;
+            padding: 14px 40px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: white;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        #saveButton:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(26, 82, 118, 0.3);
+        }
+        #saveButton:disabled { opacity: 0.6; filter: grayscale(0.5); }
 
-    window.addEventListener("DOMContentLoaded", updateStartNumber);
-  </script>
+        /* --- สถานะ --- */
+        #statusMessage {
+            display: none; padding: 12px; border-radius: 10px; font-weight: 500; margin-top: 20px; text-align: center;
+        }
+        .loading-status { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+        .success-status { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+
+        footer {
+            background: #ffffff;
+            padding: 25px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-align: center;
+        }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 700; }
+
+        @media (max-width: 576px) {
+            .card-system { padding: 20px; }
+            .container { margin-top: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="app-header">
+        <img src="https://raw.githubusercontent.com/joodami/school-assets/main/logo.png" alt="Logo" class="school-logo">
+        <h1 class="app-title">PS-Sarabun</h1>
+        <p class="app-subtitle">ระบบออกเลขเกียรติบัตร โรงเรียนพิมานพิทยาสรรค์</p>
+    </header>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card-system">
+                    <div class="text-center">
+                        <span class="year-badge"><i class="bi bi-calendar-check me-2"></i>ประจำปีงบประมาณ 2569</span>
+                    </div>
+
+                    <form id="dataForm">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label class="form-label">เลขที่เริ่มต้น</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">พส.</span>
+                                    <input type="number" id="startNumber" class="form-control fw-bold text-primary" style="background-color: #f8fafc;" readonly>
+                                    <span class="input-group-text">/2569</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">เลขที่สิ้นสุด <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">พส.</span>
+                                    <input type="number" id="endNumber" class="form-control fw-bold" placeholder="ระบุเลขสุดท้าย" required>
+                                    <span class="input-group-text">/2569</span>
+                                </div>
+                                <div id="endNumberMessage" class="form-text text-danger small"></div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">ให้ไว้ ณ วันที่</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
+                                    <input type="text" id="dateField" class="form-control" placeholder="เช่น 23 เมษายน 2569">
+                                </div>
+                                <div id="dateMessage" class="form-text text-danger small"></div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">โครงการ/กิจกรรม</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-award"></i></span>
+                                    <input type="text" id="project" class="form-control" placeholder="ระบุชื่อโครงการ">
+                                </div>
+                                <div id="projectMessage" class="form-text text-danger small"></div>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label">กลุ่มงาน/ผู้รับผิดชอบ</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                                    <input type="text" id="owner" class="form-control" placeholder="ระบุชื่อผู้รับผิดชอบหรือกลุ่มงาน">
+                                </div>
+                                <div id="ownerMessage" class="form-text text-danger small"></div>
+                            </div>
+                        </div>
+
+                        <div class="mt-5">
+                            <button type="submit" id="saveButton" class="btn">
+                                <i class="fa-solid fa-file-signature me-2"></i> ยืนยันขอเลขเกียรติบัตร
+                            </button>
+                            <div id="statusMessage"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="mb-2">
+            <i class="bi bi-info-circle me-1"></i> <strong>ข้อมูลเพิ่มเติม:</strong> 
+            <a href="https://firebasestorage.googleapis.com/v0/b/banner-web-app.appspot.com/o/%E0%B8%95%E0%B8%A2.%E0%B9%80%E0%B8%81%E0%B8%B5%E0%B8%A2%E0%B8%A3%E0%B8%95%E0%B8%B4%E0%B8%9A%E0%B8%B1%E0%B8%95%E0%B8%A3.jpg?alt=media&token=ee2c86cb-63fa-42da-931c-637654175322" target="_blank">
+                คลิกดูตัวอย่างการพิมพ์
+            </a>
+        </div>
+        <div>© 2026 งานสารบรรณ โรงเรียนพิมานพิทยาสรรค์</div>
+    </footer>
+
+    <div class="modal fade" id="resultModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0" style="border-radius: 20px; overflow: hidden;">
+                <div class="modal-header text-white border-0" style="background: var(--main-gradient);">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-check-circle-fill me-2"></i> ดำเนินการสำเร็จ</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4 text-center" id="resultMessage"></div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal" style="border-radius: 12px;">ปิดหน้าต่าง</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbzT3q3QJ3B-nrINQoCLMkdSnBB8z66w536fiC_M_o1aOB5487pwGXiKPudvCfDeyEIZ/exec";
+
+        async function post(data) {
+            const params = new URLSearchParams(data);
+            const response = await fetch(GAS_URL, { method: "POST", body: params });
+            return response.json();
+        }
+
+        function updateStartNumber() {
+            post({ action: "getLastEndNumber" }).then(last => {
+                document.getElementById('startNumber').value = (last || 0) + 1;
+            });
+        }
+
+        function validateTextField(input, messageEl, text) {
+            if (!input.value.trim()) {
+                messageEl.textContent = `❌ กรุณากรอก${text}`;
+                input.classList.add('is-invalid');
+                return false;
+            }
+            messageEl.textContent = "";
+            input.classList.remove('is-invalid');
+            return true;
+        }
+
+        function checkNumberValid() {
+            const startNum = parseInt(document.getElementById('startNumber').value);
+            const endNum = parseInt(document.getElementById('endNumber').value);
+            const msg = document.getElementById('endNumberMessage');
+            const btn = document.getElementById('saveButton');
+
+            msg.textContent = "";
+            btn.disabled = true;
+
+            if (!endNum) return;
+            if (endNum < startNum) {
+                msg.textContent = "❌ เลขสิ้นสุดต้องไม่น้อยกว่าเลขเริ่มต้น";
+                return;
+            }
+
+            post({ action: "checkDuplicate", startNum, endNum }).then(r => {
+                if (r.status === "error") {
+                    msg.textContent = "❌ ช่วงเลขนี้มีการใช้งานไปแล้ว";
+                } else {
+                    btn.disabled = false;
+                }
+            });
+        }
+
+        document.getElementById('dataForm').addEventListener("submit", async e => {
+            e.preventDefault();
+            const status = document.getElementById('statusMessage');
+            const btn = document.getElementById('saveButton');
+
+            const v1 = validateTextField(document.getElementById('dateField'), document.getElementById('dateMessage'), "วันที่");
+            const v2 = validateTextField(document.getElementById('project'), document.getElementById('projectMessage'), "โครงการ");
+            const v3 = validateTextField(document.getElementById('owner'), document.getElementById('ownerMessage'), "ผู้รับผิดชอบ");
+
+            if (!v1 || !v2 || !v3) return;
+
+            status.textContent = "⏳ กำลังบันทึกข้อมูล...";
+            status.className = "loading-status";
+            status.style.display = "block";
+            btn.disabled = true;
+
+            try {
+                const r = await post({
+                    action: "saveData",
+                    "เลขที่เริ่มต้น": document.getElementById('startNumber').value,
+                    "เลขที่สิ้นสุด": document.getElementById('endNumber').value,
+                    "ให้ไว้ ณ วันที่": document.getElementById('dateField').value,
+                    "โครงการ/กิจกรรม": document.getElementById('project').value,
+                    "ผู้รับผิดชอบ": document.getElementById('owner').value
+                });
+
+                if (r.status === "error") {
+                    status.textContent = `❌ ${r.message}`;
+                    btn.disabled = false;
+                    return;
+                }
+
+                document.getElementById('resultMessage').innerHTML = `<h5 class="text-primary fw-bold mb-2">ออกเลขเกียรติบัตรสำเร็จ!</h5><p>${r.message}</p>`;
+                new bootstrap.Modal(document.getElementById('resultModal')).show();
+                
+                e.target.reset();
+                updateStartNumber();
+                status.textContent = "✅ เรียบร้อย!";
+                status.className = "success-status";
+                setTimeout(() => { status.style.display = "none"; }, 3000);
+            } catch (err) {
+                status.textContent = "❌ ข้อผิดพลาดทางเทคนิค";
+                btn.disabled = false;
+            }
+        });
+
+        document.getElementById('endNumber').addEventListener("input", checkNumberValid);
+        window.addEventListener("DOMContentLoaded", updateStartNumber);
+    </script>
 </body>
 </html>
